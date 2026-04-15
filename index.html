@@ -3,13 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Modern Calculator</title>
+  <title>Calculator</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-
+<button id="themeToggle">🌙</button>
+<select id="themeColor">
+  <option value="default">Default</option>
+  <option value="blue">Blue</option>
+  <option value="purple">Purple</option>
+  <option value="neon">Neon</option>
+</select>
   <div class="calculator">
+    <button id="clearHistoryBtn">
+  <i class="fa-solid fa-trash"></i>
+</button>
     <div class="display">
+<div class="history" id="history"></div>
       <input type="text" id="display" disabled />
     </div>
 
@@ -38,7 +49,6 @@
   <button class="btn">3</button>
   <button class="btn equal">=</button>
 
-  <!-- Bottom Row -->
 <!-- Bottom Row -->
  <button class="btn operator">%</button>
  <button class="btn zero">0</button>

@@ -1,5 +1,35 @@
+const historyContainer = document.getElementById("history");
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll(".btn");
+
+const themeSelect = document.getElementById("themeColor");
+
+// Load saved theme
+const savedTheme = localStorage.getItem("themeColor");
+if (savedTheme) {
+  document.body.classList.add(savedTheme);
+  themeSelect.value = savedTheme;
+}
+
+function addToHistory(expression, result) {
+  const item = document.createElement("div");
+  item.textContent = `${expression} = ${result}`;
+
+  // Click to reuse result
+  item.addEventListener("click", () => {
+    currentInput = result;
+    display.value = result;
+  });
+
+  historyContainer.prepend(item);
+  saveHistory();
+}
+
+themeSelect.addEventListener("change", () => {
+  document.body.className = ""; // reset all
+  document.body.classList.add(themeSelect.value);
+  localStorage.setItem("themeColor", themeSelect.value);
+});
 
 let currentInput = "";
 
@@ -17,11 +47,11 @@ buttons.forEach(button => {
       display.value = currentInput;
     }
 
-   else if (value === "=") {
+else if (value === "=") {
   try {
     let expression = currentInput.replace(/%/g, "/100");
 
-    // 🚨 Check division by zero BEFORE eval
+    // prevent divide by 0
     if (/\/0(?!\d)/.test(expression)) {
       display.value = "Can't divide by 0";
       display.classList.add("error");
@@ -29,8 +59,12 @@ buttons.forEach(button => {
       return;
     }
 
-    currentInput = eval(expression).toString();
-    display.value = currentInput;
+    let result = eval(expression).toString(); // ✅ FIX (define result first)
+
+    addToHistory(currentInput, result); // ✅ now it's correct
+
+    currentInput = result;
+    display.value = result;
     display.classList.remove("error");
 
   } catch {
@@ -44,13 +78,11 @@ buttons.forEach(button => {
   const operators = ["+", "-", "*", "/", "%"];
 
   const lastChar = currentInput.slice(-1);
-
-  // If clicking operator
+ 
   if (operators.includes(value)) {
-
-    // Block double operators like ++ -- ** //
+ 
     if (operators.includes(lastChar)) {
-      return; // stop here
+      return;  
     }
   }
 
@@ -59,8 +91,16 @@ buttons.forEach(button => {
 }
   });
 });
+ function saveHistory() {
+  localStorage.setItem("calcHistory", historyContainer.innerHTML);
+}
 
-// Keyboard support
+function loadHistory() {
+  const saved = localStorage.getItem("calcHistory");
+  if (saved) historyContainer.innerHTML = saved;
+}
+
+loadHistory();
 document.addEventListener("keydown", (e) => {
   const key = e.key;
 
@@ -85,4 +125,27 @@ document.addEventListener("keydown", (e) => {
     currentInput = "";
     display.value = "";
   }
+});
+const toggleBtn = document.getElementById("themeToggle");
+
+// Load saved theme
+if (localStorage.getItem("theme") === "light") {
+  document.body.classList.add("light");
+  toggleBtn.textContent = "☀️";
+}
+
+toggleBtn.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+
+  if (document.body.classList.contains("light")) {
+    toggleBtn.textContent = "☀️";
+    localStorage.setItem("theme", "light");
+  } else {
+    toggleBtn.textContent = "🌙";
+    localStorage.setItem("theme", "dark");
+  }
+});
+document.getElementById("clearHistoryBtn").addEventListener("click", () => {
+  historyContainer.innerHTML = "";
+  localStorage.removeItem("calcHistory");
 });
