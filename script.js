@@ -59,9 +59,9 @@ else if (value === "=") {
       return;
     }
 
-    let result = eval(expression).toString(); // ✅ FIX (define result first)
+    let result = eval(expression).toString(); 
 
-    addToHistory(currentInput, result); // ✅ now it's correct
+    addToHistory(currentInput, result); 
 
     currentInput = result;
     display.value = result;
@@ -128,8 +128,7 @@ document.addEventListener("keydown", (e) => {
 });
 const toggleBtn = document.getElementById("themeToggle");
 
-// Load saved theme
-if (localStorage.getItem("theme") === "light") {
+ if (localStorage.getItem("theme") === "light") {
   document.body.classList.add("light");
   toggleBtn.textContent = "☀️";
 }

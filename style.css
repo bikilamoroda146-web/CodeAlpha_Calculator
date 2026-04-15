@@ -1,4 +1,4 @@
-/* RESET */
+ 
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +6,7 @@
   font-family: "Segoe UI", sans-serif;
 }
 
-/* DEFAULT BODY */
+ 
 body {
   height: 100vh;
   display: flex;
@@ -15,7 +15,7 @@ body {
   background: linear-gradient(135deg, #1e1e2f, #3a3a5a);
 }
 
-/* THEMES */
+ 
 body.light {
   background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
 }
@@ -31,8 +31,7 @@ body.purple {
 body.neon {
   background: #000;
 }
-
-/* CALCULATOR */
+ 
 .calculator {
   width: 340px;
   max-width: 95%;
@@ -77,7 +76,7 @@ body.neon {
   transition: all 0.2s ease;
 }
 
-/* HOVER */
+ 
 .btn:hover {
   transform: scale(1.05);
   background: rgba(255, 255, 255, 0.3);
@@ -96,7 +95,7 @@ body.neon {
 }
 
 .zero {
-  grid-column: span 1; /* kept as you had it ✅ */
+  grid-column: span 1;  
 }
 
 .clear {
@@ -107,15 +106,14 @@ body.neon {
   background: #576574;
 }
 
-/* LIGHT MODE OVERRIDES */
+ 
 body.light .calculator,
 body.light .display input,
 body.light .btn {
   background: rgba(0, 0, 0, 0.1);
   color: black;
 }
-
-/* NEON MODE */
+ 
 body.neon .calculator {
   box-shadow: 0 0 20px #0ff;
 }
@@ -148,7 +146,7 @@ body.neon .btn {
   border-radius: 8px;
 }
 
-/* ERROR ANIMATION */
+
 .error {
   color: #ff4d4d;
   border: 2px solid #ff4d4d;
@@ -162,8 +160,7 @@ body.neon .btn {
   75% { transform: translateX(-5px); }
   100% { transform: translateX(0); }
 }
-
-/* SMOOTH TRANSITION */
+ 
 body, .calculator, .btn, .display input {
   transition: all 0.3s ease;
 }
